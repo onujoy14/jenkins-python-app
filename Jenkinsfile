@@ -20,6 +20,20 @@ pipeline {
             archiveArtifacts artifacts: 'app.zip', fingerprint: true
         }
     }
+
+    stage('Approval') {
+       steps {
+          input message: 'App is packaged and tests passed. Approve deployment?', ok: 'Deploy'
+       }
+    }
+
+    stage('Deploy') {
+       steps {
+          sh 'mkdir -p /var/jenkins_home/deployments'
+          sh 'cp app.zip /var/jenkins_home/deployments/'
+          echo 'App successfully deployed!'
+       }
+    }
     }
 
     post {
