@@ -13,6 +13,20 @@ pipeline {
                 sh 'python3 -m pytest test_app.py -v'
             }
         }
+        stage('Run Tests') {
+        parallel {
+           stage('Test Add and Subtract') {
+              steps {
+                sh 'python3 -m pytest test_app.py::test_add test_app.py::test_subtract -v'
+              }
+           }
+        stage('Test Multiply') {
+            steps {
+                sh 'python3 -m pytest test_app.py::test_multiply -v'
+            }
+        }
+        }
+}
     
     stage('Package') {
         steps {
