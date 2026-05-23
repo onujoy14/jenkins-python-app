@@ -9,11 +9,6 @@ pipeline {
         }
 
         stage('Run Tests') {
-            steps {
-                sh 'python3 -m pytest test_app.py -v'
-            }
-        }
-        stage('Run Tests') {
         parallel {
            stage('Test Add and Subtract') {
               steps {
